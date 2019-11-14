@@ -108,25 +108,25 @@ public class Board {
 		for (i = 0; i < NUM_ROW; i++) {
 			for (j = 0; j < NUM_COL; j++) {
 				if (board[i][j] == currentPlayer) {
-					
-					try {
 						
-						for (k = -1; k <= 1; k++) {
-							for (l = -1; l <= 1; l++) {
-								count = 1;
+					for (k = -1; k <= 1; k++) {
+						for (l = -1; l <= 1; l++) {
+							count = 1;
+							try {
 								for (m = 1; board[i + (m * k)][j + (m * l)] == currentPlayer; m++) {
 									count++;
 									if (count == 4) {
 										return true;
 									}
 									
-								}							
+								}
+							}
+							catch (Exception e) {
+								
 							}
 						}
+					}
 						
-					} catch (Exception e) {
-						
-					}	
 				}
 			}
 		}
