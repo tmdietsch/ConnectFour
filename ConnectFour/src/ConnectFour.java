@@ -8,7 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.*;
 
-public class ConnectFour extends JFrame implements ActionListener{
+public class ConnectFour extends JFrame implements ActionListener {
 
 	private final static int WIDTH = 512;
 	private final static int HEIGHT = 512;
@@ -110,6 +110,7 @@ public class ConnectFour extends JFrame implements ActionListener{
 		
 		cFour.addPiece(butNum);
 		
+		updateBoard();
 		//contentFrame.get
 		
 	}

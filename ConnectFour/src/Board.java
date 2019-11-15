@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Board {
 
@@ -8,28 +9,35 @@ public class Board {
 	private final static char EMPTY = ' ';
 	
 	private char currentPlayer;
-	private char[][] board;
+	private ArrayList<Character> boardList;
 	
+	/**
+	 * 
+	 */
 	public Board() {
 		
 		currentPlayer = P1;
-		board = new char[NUM_ROW][NUM_COL];
+		boardList = new ArrayList<>();
 		
 		int i;
 		int j;
 		for (i = 0; i < NUM_ROW; i++) {
 			for (j = 0; j < NUM_COL; j++) {
 				
-				board[i][j] = EMPTY;
+				boardList.add(EMPTY);
 				
 			}
 		}
 		
 	}
 	
+	/**
+	 * 
+	 * @param b
+	 */
 	public Board(Board b) {
 		
-		this.board = new char[NUM_ROW][NUM_COL];
+		this.boardList = new ArrayList<>();
 		
 		int p1Count = 0;
 		int p2Count = 0;
@@ -39,11 +47,11 @@ public class Board {
 		for (i = 0; i < NUM_ROW; i++) {
 			for (j = 0; j < NUM_COL; j++) {
 				
-				this.board[i][j] = b.board[i][j];
-				if (b.board[i][j] == P1) {
+				this.boardList.add(b.boardList.get(i + j));
+				if (this.boardList.get(i + j) == P1) {
 					p1Count++;
 				}
-				else if(b.board[i][j] == P2) {
+				else if(this.boardList.get(i + j) == P2) {
 					p2Count++;
 				}
 				
@@ -56,12 +64,17 @@ public class Board {
 			currentPlayer = P2;
 		
 	}
-	
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	public char getPos(int row, int col) {
 		
 		if (validPos(row, col)) {
 			
-			return board[row][col];
+			return boardList.get(row + col * NUM_ROW);
 			
 		}
 		
@@ -69,13 +82,17 @@ public class Board {
 		
 	}
 	
+	/**
+	 * 
+	 * @param col
+	 */
 	public void setPos(int col) {
 		if (validPos(col)) {
 			
 			for (int i = 0; i < NUM_ROW; i++) {
 				
-				if (board[i][col] == ' ') {
-					board[i][col] = currentPlayer;
+				if (boardList.get(i + col * NUM_ROW) == ' ') {
+					boardList.set(i + col * NUM_ROW, currentPlayer);
 					return;
 				}
 				
@@ -84,6 +101,9 @@ public class Board {
 		}
 	}
 	
+	/**
+	 * 
+	 */
 	public void switchPlayer() {
 		
 		if (currentPlayer == P1)
@@ -93,23 +113,29 @@ public class Board {
 		
 	}
 	
-	public char getCurrPlayer() {
-		return currentPlayer;
-	}
+	/**
+	 * 
+	 * @return
+	 */
+	public char getCurrPlayer() {return currentPlayer;}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public boolean testWin() {
 		
-		int i, j, k, l, m, count;
+		int row, col, i, j, k, count;
 		
-		for (i = 0; i < NUM_ROW; i++) {
-			for (j = 0; j < NUM_COL; j++) {
-				if (board[i][j] == currentPlayer) {
+		for (row = 0; row < NUM_ROW; row++) {
+			for (col = 0; col < NUM_COL; col++) {
+				if (boardList.get(row + col * NUM_COL) == currentPlayer) {
 						
-					for (k = -1; k <= 1; k++) {
-						for (l = -1; l <= 1; l++) {
+					for (i = -1; i <= 1; i++) {
+						for (j = -1; j <= 1; j++) {
 							count = 1;
 							try {
-								for (m = 1; board[i + (m * k)][j + (m * l)] == currentPlayer; m++) {
+								for (k = 1; boardList.get((row + (i * k)) + (col + (j * k)) * NUM_ROW) == currentPlayer; k++) {
 									count++;
 									if (count == 4) {
 										return true;
@@ -131,10 +157,15 @@ public class Board {
 		
 	}
 	
+	/**
+	 * 
+	 * @param col
+	 * @return
+	 */
 	private boolean validPos(int col) {
 		
 		try {
-			if (col >= 0 && col < NUM_COL && board[NUM_COL - 1][col] == EMPTY)
+			if (col >= 0 && col < NUM_COL && boardList.get(col * NUM_ROW) == EMPTY)
 				return true;
 		} catch (Exception e) {		
 		}
@@ -143,12 +174,18 @@ public class Board {
 		
 	}
 	
+	/**
+	 * 
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	private boolean validPos(int row, int col) {
 		
 		try {
 			if (col >= 0 && col < NUM_COL
 					&& row >= 0 && row < NUM_ROW 
-					&& board[row][col] == EMPTY)
+					&& boardList.get(row + col * NUM_ROW) == EMPTY)
 				return true;
 		} catch (Exception e) {		
 		}
