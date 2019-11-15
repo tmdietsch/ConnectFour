@@ -99,12 +99,8 @@ public class Board {
 	
 	public boolean testWin() {
 		
-		int i;
-		int j;
-		int k;
-		int l;
-		int m;
-		int count;
+		int i, j, k, l, m, count;
+		
 		for (i = 0; i < NUM_ROW; i++) {
 			for (j = 0; j < NUM_COL; j++) {
 				if (board[i][j] == currentPlayer) {
