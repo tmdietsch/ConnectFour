@@ -19,6 +19,9 @@ public class ConnectFour extends JFrame implements ActionListener {
 	private JPanel contentFrame;
 	private static Game cFour;
 	
+	/**
+	 * Sets up the window when first created
+	 */
 	public ConnectFour() {
 		
 		setTitle("Connect Four");
@@ -87,6 +90,9 @@ public class ConnectFour extends JFrame implements ActionListener {
 		
 	}
 	
+	/**
+	 * Main driver
+	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -104,17 +110,30 @@ public class ConnectFour extends JFrame implements ActionListener {
 	}
 
 	@Override
+	/**
+	 * Runs when the user presses a button or accesses a window
+	 */
 	public void actionPerformed(ActionEvent e) {
+		System.out.println(e.getActionCommand() + "Help");
+		if (e.getActionCommand().equals("File")) {
+			
+		}
+		else {
 		
-		int butNum = Integer.getInteger(e.getActionCommand());
+			int butNum = Integer.parseInt(e.getActionCommand());
+			
+			cFour.addPiece(butNum);
+			
+			updateBoard();
 		
-		cFour.addPiece(butNum);
-		
-		updateBoard();
+		}
 		//contentFrame.get
 		
 	}
 	
+	/**
+	 * Updates the board after an action has been preformed
+	 */
 	public void updateBoard() {
 		
 		char[][] temp = cFour.getBoardLayout();
@@ -138,6 +157,13 @@ public class ConnectFour extends JFrame implements ActionListener {
 		
 	}
 	
+	/**
+	 * Finds the corresponding button using the x and y corrordinates
+	 * 
+	 * @param x
+	 * @param y
+	 * @return JButton button
+	 */
 	private JButton getButton(int x, int y) {
 		return (JButton)contentFrame.getComponentAt(x * B_WIDTH + + B_WIDTH/2, y * B_HEIGHT + B_HEIGHT/2);
 	}
