@@ -1,14 +1,14 @@
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.EventQueue;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.swing.*;
 
 public class ConnectFour extends JFrame implements ActionListener {
@@ -44,6 +44,14 @@ public class ConnectFour extends JFrame implements ActionListener {
 		
 		contentFrame.setLayout(new GridLayout(0, 1, 0, 0));
 		
+		try {
+			ImageIcon img = new ImageIcon("ConnectFour//connectFourIcon.jpg");
+			setIconImage(img.getImage());
+		} catch (Exception e) {
+			
+		}
+		
+		
 		//JPanel panel = new JPanel(new GridLayout(7,6));
 		//contentFrame.add(panel);
 		
@@ -58,22 +66,18 @@ public class ConnectFour extends JFrame implements ActionListener {
 		mb.add(file);
 		mb.add(help);
 		JMenuItem nGame = new JMenuItem("New Game");
+		JMenuItem nRules = new JMenuItem("Rules");
 		nGame.addActionListener(this);
+		nRules.addActionListener(this);
 		file.add(nGame);
 		
-		this.setJMenuBar(mb);
+		if(!Desktop.isDesktopSupported()) {
+			nRules.setEnabled(false);
+		}
 		
-//		String[] buttonNames = {"1","2","3","4","5","6","7"};
-//		
-//		for (String name : buttonNames) {
-//			
-//			JButton btn = new JButton(name);
-//			btn.setBackground(new Color(25, 25, 112));
-//			btn.setForeground(Color.WHITE);
-//			btn.addActionListener(this);
-//			panel_1.add(btn);
-//			
-//		}
+		help.add(nRules);
+		
+		this.setJMenuBar(mb);
 		
 		char[][] tempAry = cFour.getBoardLayout();		
 		
@@ -123,10 +127,30 @@ public class ConnectFour extends JFrame implements ActionListener {
 	 * Runs when the user presses a button or accesses a window
 	 */
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(e.getActionCommand());
+		System.out.println(e.getActionCommand());	//remove
 		if (e.getActionCommand().equals("New Game")) {
 			cFour = new Game();
 			resetButtons();
+		}
+		else if(e.getActionCommand().equals("Rules")) {
+			File file = new File("ConnectFour//Rules.txt");
+			Desktop desktop = Desktop.getDesktop();
+			
+			try {
+				if (file.createNewFile()) {
+					FileWriter writer = new FileWriter(file);
+					writer.write("Connect Four Rules\r\n" + 
+							"\r\n" + 
+							"Object:\r\n" + 
+							"To win Connect Four, you must be the first player to get\r\n" + 
+							"four of your colored checkers in a row either horizontally,\r\n" + 
+							"vertically or diagonally.");
+					writer.close();
+				}
+				desktop.open(file);
+			} catch (IOException ioe) {
+				
+			}
 		}
 		else {
 		
