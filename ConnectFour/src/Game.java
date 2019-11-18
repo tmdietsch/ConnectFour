@@ -16,13 +16,11 @@ public class Game {
 	 * Adds a piece where the user wants to play
 	 * @param col - column where the user wants to add a piece
 	 */
-	public void addPiece(int col) {
+	public void turn(int col) {
 		
-		cBoard.setPos(col);
-		
-		
-		
-		cBoard.switchPlayer();
+		if (cBoard.setPos(col)) {
+			cBoard.switchPlayer();
+		}		
 		
 	}
 	

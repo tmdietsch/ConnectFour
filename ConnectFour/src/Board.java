@@ -72,13 +72,13 @@ public class Board {
 	 */
 	public char getPos(int row, int col) {
 		
-		if (validPos(row, col)) {
+		//if (validPos(row, col)) {
 			
 			return boardList.get(row + col * NUM_ROW);
 			
-		}
+		//}
 		
-		throw new IllegalArgumentException("Invalid board position");
+		//throw new IllegalArgumentException("Invalid board position");
 		
 	}
 	
@@ -86,19 +86,20 @@ public class Board {
 	 * 
 	 * @param col
 	 */
-	public void setPos(int col) {
+	public boolean setPos(int col) {
 		if (validPos(col)) {
 			
 			for (int i = 0; i < NUM_ROW; i++) {
 				
 				if (boardList.get(i + col * NUM_ROW) == ' ') {
 					boardList.set(i + col * NUM_ROW, currentPlayer);
-					return;
+					return true;
 				}
 				
 			}
 			
 		}
+		return false;
 	}
 	
 	/**

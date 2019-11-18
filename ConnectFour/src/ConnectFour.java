@@ -1,15 +1,23 @@
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.*;
 
 public class ConnectFour extends JFrame implements ActionListener {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private final static int WIDTH = 512;
 	private final static int HEIGHT = 512;
 	
@@ -17,6 +25,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 	private final static int B_HEIGHT = HEIGHT / 7;
 	
 	private JPanel contentFrame;
+	private static Map<Integer, JButton> buttons;
 	private static Game cFour;
 	
 	/**
@@ -49,6 +58,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 		mb.add(file);
 		mb.add(help);
 		JMenuItem nGame = new JMenuItem("New Game");
+		nGame.addActionListener(this);
 		file.add(nGame);
 		
 		this.setJMenuBar(mb);
@@ -65,9 +75,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 //			
 //		}
 		
-		char[][] tempAry = cFour.getBoardLayout();
-		
-		
+		char[][] tempAry = cFour.getBoardLayout();		
 		
 		for (int i = 0; i < tempAry.length; i++) {
 			
@@ -82,7 +90,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 				btn.setForeground(Color.GRAY);
 				btn.addActionListener(this);
 				btn.setActionCommand(Integer.toString(i * (tempAry.length + 1) + j));
-				//btn.setEnabled(false);
+				buttons.put(i * 6 + j, btn);
 				panel_char.add(btn);
 				
 			}
@@ -105,6 +113,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 			}
 		});
 		
+		buttons = new HashMap<>();
 		cFour = new Game();
 
 	}
@@ -114,20 +123,20 @@ public class ConnectFour extends JFrame implements ActionListener {
 	 * Runs when the user presses a button or accesses a window
 	 */
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(e.getActionCommand() + "Help");
-		if (e.getActionCommand().equals("File")) {
-			
+		System.out.println(e.getActionCommand());
+		if (e.getActionCommand().equals("New Game")) {
+			cFour = new Game();
+			resetButtons();
 		}
 		else {
 		
 			int butNum = Integer.parseInt(e.getActionCommand());
 			
-			cFour.addPiece(butNum);
-			
-			updateBoard();
+			cFour.turn(butNum);
 		
 		}
-		//contentFrame.get
+		
+		updateBoard();
 		
 	}
 	
@@ -141,31 +150,29 @@ public class ConnectFour extends JFrame implements ActionListener {
 		for (int i = 0; i < 6; i++) {
 			for (int j = 0; j < 7; j++) {
 				
-				JButton button = getButton(i, j);
-				
 				if (temp[i][j] == '#')
-					button.setBackground(Color.YELLOW);
+					buttons.get(i*6 + j).setBackground(Color.YELLOW);
 				else if (temp[i][j] == 'O')
-					button.setBackground(Color.RED);
+					buttons.get(i*6 + j).setBackground(Color.RED);
 				else
-					button.setBackground(Color.GRAY);
+					buttons.get(i*6 + j).setBackground(Color.GRAY);
 				
 			}
 		}
 		
-		
-		
 	}
 	
 	/**
-	 * Finds the corresponding button using the x and y corrordinates
 	 * 
-	 * @param x
-	 * @param y
-	 * @return JButton button
 	 */
-	private JButton getButton(int x, int y) {
-		return (JButton)contentFrame.getComponentAt(x * B_WIDTH + + B_WIDTH/2, y * B_HEIGHT + B_HEIGHT/2);
+	private void resetButtons() {
+		
+		char[][] temp = cFour.getBoardLayout();
+		
+		for (int i = 0; i < 6; i++) 
+			for (int j = 0; j < 7; j++) 
+				buttons.get(i*6 + j).setBackground(Color.GRAY);
+		
 	}
 
 }
