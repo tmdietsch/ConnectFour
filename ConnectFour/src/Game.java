@@ -63,19 +63,33 @@ public class Game {
 	}
 	
 	/**
-	 * @return the board represented as a 2D array of characters
+	 * 
+	 * @return
 	 */
-	public char[][] getBoardLayout() {
+	public int getNumRow() {return cBoard.getNumRow();}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getNumCol() {return cBoard.getNumCol();}
+	
+	/**
+	 * @return the board represented as an ArrayList of characters
+	 */
+	public ArrayList<Character> getBoardLayout() {
 		
-		char[][] tempBoard = new char[6][7];
+		ArrayList<Character> tempBoard = new ArrayList<>();
 		
-		int i;
-		int j;
-		
-		for (i = 0; i < tempBoard.length; i++) {
-			for (j = 0; j < tempBoard[i].length; j++) {
-				tempBoard[i][j] = cBoard.getPos(i, j);
+		int i = 0;
+		try {
+			while(true) {
+				tempBoard.add(cBoard.getPos(i));
+				
+				i++;
 			}
+		} catch(Exception e) {
+			
 		}
 		
 		return tempBoard;

@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import javax.swing.*;
@@ -66,20 +67,18 @@ public class ConnectFour extends JFrame implements ActionListener {
 		if(!Desktop.isDesktopSupported()) {
 			nRules.setEnabled(false);
 		}
-		
 		help.add(nRules);
 		
 		this.setJMenuBar(mb);
+		//End of MenuBar	
 		
-		char[][] tempAry = cFour.getBoardLayout();		
-		
-		for (int i = 0; i < tempAry.length; i++) {
+		for (int i = 0; i < cFour.getNumRow(); i++) {
 			
 			JPanel panel_char = new JPanel();
 			contentFrame.add(panel_char);
 			panel_char.setLayout(new GridLayout(1, 0, 0, 0));
 			
-			for (int j = 0; j < tempAry[i].length; j++) {
+			for (int j = 0; j < cFour.getNumCol(); j++) {
 				
 				JButton btn = new JButton();
 				btn.setBackground(Color.GRAY);
@@ -119,7 +118,6 @@ public class ConnectFour extends JFrame implements ActionListener {
 	 * Runs when the user presses a button or accesses a window
 	 */
 	public void actionPerformed(ActionEvent e) {
-		System.out.println(e.getActionCommand());	//remove
 		if (e.getActionCommand().equals("New Game")) {
 			cFour = new Game();
 			resetButtons();
@@ -161,19 +159,19 @@ public class ConnectFour extends JFrame implements ActionListener {
 	 */
 	public void updateBoard() {
 		
-		char[][] temp = cFour.getBoardLayout();
+		ArrayList<Character> board = cFour.getBoardLayout();
 		
-		for (int i = 0; i < 6; i++) {
-			for (int j = 0; j < 7; j++) {
-				
-				if (temp[i][j] == '#')
-					buttons.get(i + j * 6).setBackground(Color.YELLOW);
-				else if (temp[i][j] == 'O')
-					buttons.get(i + j * 6).setBackground(Color.RED);
-				else
-					buttons.get(i + j * 6).setBackground(Color.GRAY);
-				
+		for (int i = 0; i < board.size(); i++) {
+			if (board.get(i) == '#') {
+				buttons.get(i).setBackground(Color.YELLOW);
+				buttons.get(i).setEnabled(false);
 			}
+			else if (board.get(i) == 'O') {
+				buttons.get(i).setBackground(Color.RED);
+				buttons.get(i).setEnabled(false);
+			}
+			else
+				buttons.get(i).setBackground(Color.GRAY);
 		}
 		
 		if (cFour.testWin()) {
@@ -185,14 +183,11 @@ public class ConnectFour extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
-	private void resetButtons() {
-		
-		char[][] temp = cFour.getBoardLayout();
-		
-		for (int i = 0; i < 6; i++) 
-			for (int j = 0; j < 7; j++) 
-				buttons.get(i*6 + j).setBackground(Color.GRAY);
-		
+	private void resetButtons() {		
+		for (Integer bi : buttons.keySet()) {
+			buttons.get(bi).setBackground(Color.GRAY);
+			buttons.get(bi).setEnabled(true);
+		}		
 	}
 
 }
