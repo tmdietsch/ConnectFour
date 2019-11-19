@@ -4,6 +4,7 @@ public class Board {
 
 	private final static int NUM_ROW = 6;
 	private final static int NUM_COL = 7;
+	private final static int TOT_SPACES = NUM_ROW * NUM_COL;
 	private final static char P1 = '#';
 	private final static char P2 = 'O';
 	private final static char EMPTY = ' ';
@@ -64,42 +65,53 @@ public class Board {
 			currentPlayer = P2;
 		
 	}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getNumRow() {return NUM_ROW;}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getNumCol() {return NUM_COL;}
+	
 	/**
 	 * 
 	 * @param row
 	 * @param col
 	 * @return
 	 */
-	public char getPos(int row, int col) {
-		
-		//if (validPos(row, col)) {
-			
-			return boardList.get(row + col * NUM_ROW);
-			
-		//}
-		
-		//throw new IllegalArgumentException("Invalid board position");
-		
-	}
+	public char getPos(int row, int col) {return boardList.get(row + col * NUM_ROW);}
+	
+	/**
+	 * 
+	 * @param space
+	 * @return
+	 */
+	public char getPos(int space) {return boardList.get(space);}
 	
 	/**
 	 * 
 	 * @param col
+	 * @return
 	 */
-	public boolean setPos(int col) {
-		if (validPos(col)) {
+	public boolean setPos(int space) {
+		if (validPos(space)) {
 			
-			for (int i = 0; i < NUM_ROW; i++) {
+			int column = space / NUM_ROW;		
+			for (int i = NUM_ROW - 1; i >= 0; i--) {
 				
-				if (boardList.get(i + col * NUM_ROW) == ' ') {
-					boardList.set(i + col * NUM_ROW, currentPlayer);
+				if (boardList.get((column * NUM_ROW) + i) == ' ') {
+					boardList.set((column * NUM_ROW) + i, currentPlayer);
 					return true;
-				}
-				
-			}
-			
+				}				
+			}			
 		}
 		return false;
+		
 	}
 	
 	/**
@@ -122,77 +134,38 @@ public class Board {
 	
 	/**
 	 * 
+	 * @param col
 	 * @return
 	 */
-	public boolean testWin() {
+	private boolean validPos(int space) {
 		
-		int row, col, i, j, k, count;
-		
-		for (row = 0; row < NUM_ROW; row++) {
-			for (col = 0; col < NUM_COL; col++) {
-				if (boardList.get(row + col * NUM_COL) == currentPlayer) {
-						
-					for (i = -1; i <= 1; i++) {
-						for (j = -1; j <= 1; j++) {
-							count = 1;
-							try {
-								for (k = 1; boardList.get((row + (i * k)) + (col + (j * k)) * NUM_ROW) == currentPlayer; k++) {
-									count++;
-									if (count == 4) {
-										return true;
-									}
-									
-								}
-							}
-							catch (Exception e) {
-								
-							}
-						}
-					}
-						
-				}
+		try {
+			if (space >= 0 && space < TOT_SPACES && getPos(space) == EMPTY) {
+				return true;
 			}
+		} catch (Exception e) {
 		}
 		
 		return false;
 		
 	}
 	
-	/**
-	 * 
-	 * @param col
-	 * @return
-	 */
-	private boolean validPos(int col) {
-		
-		try {
-			if (col >= 0 && col < NUM_COL && boardList.get(col * NUM_ROW) == EMPTY)
-				return true;
-		} catch (Exception e) {		
-		}
-		
-		return false;
-		
-	}
-	
-	/**
-	 * 
-	 * @param row
-	 * @param col
-	 * @return
-	 */
-	private boolean validPos(int row, int col) {
-		
-		try {
-			if (col >= 0 && col < NUM_COL
-					&& row >= 0 && row < NUM_ROW 
-					&& boardList.get(row + col * NUM_ROW) == EMPTY)
-				return true;
-		} catch (Exception e) {		
-		}
-		
-		return false;
-		
-	}
+//	/**
+//	 * 
+//	 */
+//	public void printBoard() {
+//		
+//		for (int i = 0; i < NUM_ROW; i++) {
+//			for (int j = 0; j < NUM_COL; j++) {
+//				
+//				System.out.print(boardList.get(i + j * NUM_ROW));
+//				
+//			}
+//			System.out.println();
+//		}
+//		
+//		System.out.println("---------------");
+//		
+//	}
 	
 }

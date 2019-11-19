@@ -50,14 +50,6 @@ public class ConnectFour extends JFrame implements ActionListener {
 		} catch (Exception e) {
 			
 		}
-		
-		
-		//JPanel panel = new JPanel(new GridLayout(7,6));
-		//contentFrame.add(panel);
-		
-//		JPanel panel_1 = new JPanel();
-//		panel.add(panel_1);
-//		panel_1.setLayout(new GridLayout(1, 0, 0, 0));
 				
 		//Creating MenuBar
 		JMenuBar mb = new JMenuBar();
@@ -93,8 +85,8 @@ public class ConnectFour extends JFrame implements ActionListener {
 				btn.setBackground(Color.GRAY);
 				btn.setForeground(Color.GRAY);
 				btn.addActionListener(this);
-				btn.setActionCommand(Integer.toString(i * (tempAry.length + 1) + j));
-				buttons.put(i * 6 + j, btn);
+				btn.setActionCommand(Integer.toString(i + j * 6));
+				buttons.put(i + j * 6, btn);
 				panel_char.add(btn);
 				
 			}
@@ -165,7 +157,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * Updates the board after an action has been preformed
+	 * Updates the board after an action has been performed
 	 */
 	public void updateBoard() {
 		
@@ -175,13 +167,17 @@ public class ConnectFour extends JFrame implements ActionListener {
 			for (int j = 0; j < 7; j++) {
 				
 				if (temp[i][j] == '#')
-					buttons.get(i*6 + j).setBackground(Color.YELLOW);
+					buttons.get(i + j * 6).setBackground(Color.YELLOW);
 				else if (temp[i][j] == 'O')
-					buttons.get(i*6 + j).setBackground(Color.RED);
+					buttons.get(i + j * 6).setBackground(Color.RED);
 				else
-					buttons.get(i*6 + j).setBackground(Color.GRAY);
+					buttons.get(i + j * 6).setBackground(Color.GRAY);
 				
 			}
+		}
+		
+		if (cFour.testWin()) {
+			System.out.println(cFour.getCurrPlayer() + " Wins!");
 		}
 		
 	}
