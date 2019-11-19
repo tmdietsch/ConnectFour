@@ -20,6 +20,7 @@ public class Game {
 	public void turn(int space) {
 		if (cBoard.setPos(space)) {
 			cBoard.switchPlayer();
+		}
 	}
 	
 	/**
