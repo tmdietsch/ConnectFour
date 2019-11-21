@@ -15,15 +15,15 @@ import javax.swing.*;
 public class ConnectFour extends JFrame implements ActionListener {
 
 	/**
-	 * 
+	 * Serial Version UID: 1L (Default)
 	 */
 	private static final long serialVersionUID = 1L;
 	
 	private final static int WIDTH = 512;
 	private final static int HEIGHT = 512;
 	
-	private final static int B_WIDTH = WIDTH / 7;
-	private final static int B_HEIGHT = HEIGHT / 7;
+//	private final static int B_WIDTH = WIDTH / 7;
+//	private final static int B_HEIGHT = HEIGHT / 7;
 	
 	private JPanel contentFrame;
 	private static Map<Integer, JButton> buttons;
@@ -60,14 +60,18 @@ public class ConnectFour extends JFrame implements ActionListener {
 		mb.add(help);
 		JMenuItem nGame = new JMenuItem("New Game");
 		JMenuItem nRules = new JMenuItem("Rules");
+		JMenuItem credit = new JMenuItem("Credits");
 		nGame.addActionListener(this);
 		nRules.addActionListener(this);
+		credit.addActionListener(this);
 		file.add(nGame);
 		
 		if(!Desktop.isDesktopSupported()) {
 			nRules.setEnabled(false);
+			credit.setEnabled(false);
 		}
 		help.add(nRules);
+		help.add(credit);
 		
 		this.setJMenuBar(mb);
 		//End of MenuBar	
@@ -122,19 +126,27 @@ public class ConnectFour extends JFrame implements ActionListener {
 			cFour = new Game();
 			resetButtons();
 		}
-		else if(e.getActionCommand().equals("Rules")) {
-			File file = new File("ConnectFour//Rules.txt");
+		else if(e.getActionCommand().equals("Rules") || e.getActionCommand().equals("Credits")) {
+			File file = new File("ConnectFour//" + e.getActionCommand() + ".txt");
 			Desktop desktop = Desktop.getDesktop();
-			
 			try {
 				if (file.createNewFile()) {
 					FileWriter writer = new FileWriter(file);
-					writer.write("Connect Four Rules\r\n" + 
-							"\r\n" + 
-							"Object:\r\n" + 
-							"To win Connect Four, you must be the first player to get\r\n" + 
-							"four of your colored checkers in a row either horizontally,\r\n" + 
-							"vertically or diagonally.");
+					if (e.getActionCommand().equals("Rules")) {
+						writer.write("Connect Four Rules\r\n" + 
+								"\r\n" + 
+								"Object:\r\n" + 
+								"To win Connect Four, you must be the first player to get\r\n" + 
+								"four of your colored checkers in a row either horizontally,\r\n" + 
+								"vertically or diagonally.");
+					}
+					else {
+						writer.write("Credits\r\n"
+								+ "\r\n"
+								+ "Timothy Dietsch\r\n"
+								+ "Timothy Magargee\r\n"
+								+ "Timothy Warner");
+					}
 					writer.close();
 				}
 				desktop.open(file);
@@ -147,11 +159,10 @@ public class ConnectFour extends JFrame implements ActionListener {
 			int butNum = Integer.parseInt(e.getActionCommand());
 			
 			cFour.turn(butNum);
+			updateBoard();
+			cFour.switchPlayer();
 		
-		}
-		
-		updateBoard();
-		
+		}		
 	}
 	
 	/**
@@ -175,9 +186,12 @@ public class ConnectFour extends JFrame implements ActionListener {
 		}
 		
 		if (cFour.testWin()) {
-			System.out.println(cFour.getCurrPlayer() + " Wins!");
+			// # is player 1
+			// O is player 2
+			for (Integer bi : buttons.keySet()) {
+				buttons.get(bi).setEnabled(false);
+			}	
 		}
-		
 	}
 	
 	/**

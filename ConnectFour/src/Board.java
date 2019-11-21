@@ -80,11 +80,28 @@ public class Board {
 	
 	/**
 	 * 
+	 * @return
+	 */
+	public char getP1() {return P1;}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public char getP2() {return P2;}
+	
+	/**
+	 * 
 	 * @param row
 	 * @param col
 	 * @return
 	 */
-	public char getPos(int row, int col) {return boardList.get(row + col * NUM_ROW);}
+	public char getPos(int row, int col) {
+		if (row >= 0 && col >=0 && row < NUM_ROW && col < NUM_COL)
+			return boardList.get(row + col * NUM_ROW);
+		else
+			throw new IllegalArgumentException();
+	}
 	
 	/**
 	 * 
@@ -114,16 +131,11 @@ public class Board {
 		
 	}
 	
-	/**
-	 * 
-	 */
-	public void switchPlayer() {
-		
+	public String getCurrPlName() {
 		if (currentPlayer == P1)
-			currentPlayer = P2;
+			return "Player 1 (Yellow)";
 		else
-			currentPlayer = P1;
-		
+			return "Player 2 (Red)";
 	}
 	
 	/**
@@ -131,6 +143,12 @@ public class Board {
 	 * @return
 	 */
 	public char getCurrPlayer() {return currentPlayer;}
+	
+	/**
+	 * 
+	 * @param p
+	 */
+	public void setCurrPlayer(char p) {currentPlayer = p;}
 	
 	/**
 	 * 
@@ -149,23 +167,5 @@ public class Board {
 		return false;
 		
 	}
-	
-//	/**
-//	 * 
-//	 */
-//	public void printBoard() {
-//		
-//		for (int i = 0; i < NUM_ROW; i++) {
-//			for (int j = 0; j < NUM_COL; j++) {
-//				
-//				System.out.print(boardList.get(i + j * NUM_ROW));
-//				
-//			}
-//			System.out.println();
-//		}
-//		
-//		System.out.println("---------------");
-//		
-//	}
 	
 }
