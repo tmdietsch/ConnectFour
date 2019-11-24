@@ -26,9 +26,9 @@ public class ConnectFour extends JFrame implements ActionListener {
 	private final static int X = (Toolkit.getDefaultToolkit().getScreenSize().width - WIDTH) / 2;
 	private final static int Y = (Toolkit.getDefaultToolkit().getScreenSize().height - HEIGHT) / 2;
 	
-	
 	private final static Color COLOR_ONE = Color.YELLOW;
 	private final static Color COLOR_TWO = Color.RED;
+	private final static Color COLOR_DEFAULT = Color.GRAY;
 	
 	private static Map<Integer, JButton> buttons;
 	private static Game cFour;
@@ -46,12 +46,8 @@ public class ConnectFour extends JFrame implements ActionListener {
 		//Creating Frame
 		setBounds(X, Y, WIDTH, HEIGHT);
 		
-		
 		JPanel contentFrame = new JPanel();
-//		JPanel draw = new Draw();
-//		setContentPane(contentFrame);
 		getContentPane().add(contentFrame);
-//		getContentPane().add(draw, BorderLayout.NORTH);
 		contentFrame.setBackground(Color.DARK_GRAY);
 		
 		contentFrame.setLayout(new GridLayout(0, 1, 0, 0));
@@ -60,7 +56,6 @@ public class ConnectFour extends JFrame implements ActionListener {
 			ImageIcon img = new ImageIcon("ConnectFour//connectFourIcon.jpg");
 			setIconImage(img.getImage());
 		} catch (Exception e) {
-			
 		}
 				
 		//Creating MenuBar
@@ -112,8 +107,8 @@ public class ConnectFour extends JFrame implements ActionListener {
 			for (int j = 0; j < cFour.getNumCol(); j++) {
 				
 				JButton btn = new JButton();
-				btn.setBackground(Color.GRAY);
-				btn.setForeground(Color.GRAY);
+				btn.setBackground(COLOR_DEFAULT);
+				btn.setForeground(COLOR_DEFAULT);
 				btn.addActionListener(this);
 				btn.setActionCommand(Integer.toString(i + j * 6));
 				buttons.put(i + j * 6, btn);
@@ -121,7 +116,6 @@ public class ConnectFour extends JFrame implements ActionListener {
 				
 			}
 		}
-		
 	}
 	
 	/**
@@ -179,7 +173,6 @@ public class ConnectFour extends JFrame implements ActionListener {
 				}
 				desktop.open(file);
 			} catch (IOException ioe) {
-				
 			}
 		}
 		else {
@@ -210,7 +203,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 				buttons.get(i).setEnabled(false);
 			}
 			else
-				buttons.get(i).setBackground(Color.GRAY);
+				buttons.get(i).setBackground(COLOR_DEFAULT);
 		}
 		
 		if (cFour.testWin()) {
@@ -233,7 +226,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 	 */
 	private void resetButtons() {		
 		for (Integer bi : buttons.keySet()) {
-			buttons.get(bi).setBackground(Color.GRAY);
+			buttons.get(bi).setBackground(COLOR_DEFAULT);
 			buttons.get(bi).setEnabled(true);
 		}		
 	}

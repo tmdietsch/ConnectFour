@@ -16,6 +16,9 @@ public class Draw extends JPanel {
 	private int pOne;
 	private int pTwo;
 	
+	/**
+	 * 
+	 */
 	public Draw() {
 		pOne = 0;
 		pTwo = 0;
@@ -24,6 +27,9 @@ public class Draw extends JPanel {
 		winCondition = 0;
 	}
 	
+	/**
+	 * 
+	 */
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		setBackground(bgC);
@@ -39,15 +45,32 @@ public class Draw extends JPanel {
         
     }
 	
+	/**
+	 * 
+	 * @param p
+	 */
 	public void setP1Points(int p) {
 		pOne = p;
 	}
 	
+	/**
+	 * 
+	 * @param p
+	 */
 	public void setP2Points(int p) {
 		pTwo = p;
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getP1Points() {return pOne;}
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getP2Points() {return pTwo;}
 	
 	/**
@@ -61,6 +84,10 @@ public class Draw extends JPanel {
 		}
 	}
 	
+	/**
+	 * 
+	 * @param c
+	 */
 	public void setColor(Color c) {
 		this.c = c;
 	}

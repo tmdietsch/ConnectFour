@@ -4,7 +4,6 @@ public class Game {
 
 	private int p1Points;
 	private int p2Points;
-	
 	private Board cBoard;
 	
 	/**
@@ -18,6 +17,11 @@ public class Game {
 		
 	}
 	
+	/**
+	 * 
+	 * @param p1Points
+	 * @param p2Points
+	 */
 	public Game(int p1Points, int p2Points) {
 		
 		cBoard = new Board();
@@ -139,6 +143,10 @@ public class Game {
 		return cBoard.getCurrPlayer();
 	}
 	
+	/**
+	 * 
+	 * @return
+	 */
 	public int getCurrPlayerInt() {
 		
 		if (getCurrPlayer() == cBoard.getP1())
