@@ -2,6 +2,9 @@ import java.util.ArrayList;
 
 public class Game {
 
+	private int p1Points;
+	private int p2Points;
+	
 	private Board cBoard;
 	
 	/**
@@ -10,7 +13,16 @@ public class Game {
 	public Game() {
 		
 		cBoard = new Board();
+		p1Points = 0;
+		p2Points = 0;
 		
+	}
+	
+	public Game(int p1Points, int p2Points) {
+		
+		cBoard = new Board();
+		this.p1Points = p1Points;
+		this.p2Points = p2Points;
 	}
 	
 	/**
@@ -40,7 +52,10 @@ public class Game {
 									for (k = 0; cBoard.getPos(row + (i * k), col + (j * k)) == cBoard.getCurrPlayer(); k++) {
 										count++;
 										if (count == 4) {
-											System.out.println(cBoard.getCurrPlName() + " Wins!"); //Replace with graphic on window
+											if (cBoard.getCurrPlayer() == cBoard.getP1()) 
+												p1Points++;
+											else
+												p2Points++;
 											return true;
 										}
 									}
@@ -84,6 +99,18 @@ public class Game {
 	public int getNumCol() {return cBoard.getNumCol();}
 	
 	/**
+	 * 
+	 * @return
+	 */
+	public int getP1Points() {return p1Points;}
+	
+	/**
+	 * 
+	 * @return
+	 */
+	public int getP2Points() {return p2Points;}
+	
+	/**
 	 * @return the board represented as an ArrayList of characters
 	 */
 	public ArrayList<Character> getBoardLayout() {
@@ -110,6 +137,14 @@ public class Game {
 	 */
 	public char getCurrPlayer() {
 		return cBoard.getCurrPlayer();
+	}
+	
+	public int getCurrPlayerInt() {
+		
+		if (getCurrPlayer() == cBoard.getP1())
+			return 1;
+		else
+			return 2;
 	}
 	
 }

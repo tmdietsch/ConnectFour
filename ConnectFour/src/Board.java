@@ -29,7 +29,6 @@ public class Board {
 				
 			}
 		}
-		
 	}
 	
 	/**
@@ -129,13 +128,6 @@ public class Board {
 		}
 		return false;
 		
-	}
-	
-	public String getCurrPlName() {
-		if (currentPlayer == P1)
-			return "Player 1 (Yellow)";
-		else
-			return "Player 2 (Red)";
 	}
 	
 	/**

@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Desktop;
 import java.awt.EventQueue;
+import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -20,14 +21,16 @@ public class ConnectFour extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	
 	private final static int WIDTH = 512;
-	private final static int HEIGHT = 512;
+	private final static int HEIGHT = 597;
 	
-//	private final static int B_WIDTH = WIDTH / 7;
-//	private final static int B_HEIGHT = HEIGHT / 7;
+	private final static Color COLOR_ONE = Color.YELLOW;
+	private final static Color COLOR_TWO = Color.RED;
 	
-	private JPanel contentFrame;
 	private static Map<Integer, JButton> buttons;
 	private static Game cFour;
+	private static Draw drawPanel;
+	
+	private int butNum;
 	
 	/**
 	 * Sets up the window when first created
@@ -37,11 +40,15 @@ public class ConnectFour extends JFrame implements ActionListener {
 		setTitle("Connect Four");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Creating Frame
-		setBounds(100, 100, WIDTH, HEIGHT);
+		setBounds(100, 50, WIDTH, HEIGHT);
 		
 		
-		contentFrame = new JPanel();
-		setContentPane(contentFrame);
+		JPanel contentFrame = new JPanel();
+//		JPanel draw = new Draw();
+//		setContentPane(contentFrame);
+		getContentPane().add(contentFrame);
+//		getContentPane().add(draw, BorderLayout.NORTH);
+		contentFrame.setBackground(Color.DARK_GRAY);
 		
 		contentFrame.setLayout(new GridLayout(0, 1, 0, 0));
 		
@@ -73,12 +80,28 @@ public class ConnectFour extends JFrame implements ActionListener {
 		help.add(nRules);
 		help.add(credit);
 		
-		this.setJMenuBar(mb);
-		//End of MenuBar	
+		setJMenuBar(mb);
+		
+		//End of MenuBar
+		
+		//Start of drawPanel
+		drawPanel = new Draw();
+		
+		drawPanel.setP1Points(cFour.getP1Points());
+		drawPanel.setP2Points(cFour.getP2Points());
+		
+		contentFrame.add(drawPanel);
+		//End of drawPanel
 		
 		for (int i = 0; i < cFour.getNumRow(); i++) {
 			
-			JPanel panel_char = new JPanel();
+			JPanel panel_char = new JPanel() {
+				
+				private static final long serialVersionUID = 1L;
+
+				@Override
+				public void paintComponent(Graphics g) {}
+			};
 			contentFrame.add(panel_char);
 			panel_char.setLayout(new GridLayout(1, 0, 0, 0));
 			
@@ -123,7 +146,8 @@ public class ConnectFour extends JFrame implements ActionListener {
 	 */
 	public void actionPerformed(ActionEvent e) {
 		if (e.getActionCommand().equals("New Game")) {
-			cFour = new Game();
+			cFour = new Game(cFour.getP1Points(), cFour.getP2Points());
+			drawPanel.ifWin(0);
 			resetButtons();
 		}
 		else if(e.getActionCommand().equals("Rules") || e.getActionCommand().equals("Credits")) {
@@ -156,7 +180,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 		}
 		else {
 		
-			int butNum = Integer.parseInt(e.getActionCommand());
+			butNum = Integer.parseInt(e.getActionCommand());
 			
 			cFour.turn(butNum);
 			updateBoard();
@@ -174,11 +198,11 @@ public class ConnectFour extends JFrame implements ActionListener {
 		
 		for (int i = 0; i < board.size(); i++) {
 			if (board.get(i) == '#') {
-				buttons.get(i).setBackground(Color.YELLOW);
+				buttons.get(i).setBackground(COLOR_ONE);
 				buttons.get(i).setEnabled(false);
 			}
 			else if (board.get(i) == 'O') {
-				buttons.get(i).setBackground(Color.RED);
+				buttons.get(i).setBackground(COLOR_TWO);
 				buttons.get(i).setEnabled(false);
 			}
 			else
@@ -186,11 +210,17 @@ public class ConnectFour extends JFrame implements ActionListener {
 		}
 		
 		if (cFour.testWin()) {
-			// # is player 1
-			// O is player 2
+			
 			for (Integer bi : buttons.keySet()) {
 				buttons.get(bi).setEnabled(false);
-			}	
+			}
+			
+			//drawPanel update
+			drawPanel.setP1Points(cFour.getP1Points());
+			drawPanel.setP2Points(cFour.getP2Points());
+			drawPanel.ifWin(cFour.getCurrPlayerInt());			
+			drawPanel.repaint();
+			
 		}
 	}
 	
