@@ -3,6 +3,7 @@ import java.awt.Desktop;
 import java.awt.EventQueue;
 import java.awt.Graphics;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -22,6 +23,9 @@ public class ConnectFour extends JFrame implements ActionListener {
 	
 	private final static int WIDTH = 512;
 	private final static int HEIGHT = 597;
+	private final static int X = (Toolkit.getDefaultToolkit().getScreenSize().width - WIDTH) / 2;
+	private final static int Y = (Toolkit.getDefaultToolkit().getScreenSize().height - HEIGHT) / 2;
+	
 	
 	private final static Color COLOR_ONE = Color.YELLOW;
 	private final static Color COLOR_TWO = Color.RED;
@@ -40,7 +44,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 		setTitle("Connect Four");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		//Creating Frame
-		setBounds(100, 50, WIDTH, HEIGHT);
+		setBounds(X, Y, WIDTH, HEIGHT);
 		
 		
 		JPanel contentFrame = new JPanel();
