@@ -1,7 +1,9 @@
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 public class Draw extends JPanel {
@@ -39,8 +41,16 @@ public class Draw extends JPanel {
         g.setColor(Color.RED);
         g.drawString(p2Str + ": " + pTwo, 10, 60);
 		if (winCondition > 0) {
+			String s = "";
 			g.setColor(c);
-			g.drawString("Player " + winCondition + winStr , 270, 45);
+			if (winCondition == 3)
+				s = "It's a Draw!";
+			else 
+				s = "Player " + winCondition + winStr;
+			
+			g.drawString(s, 270, 45);
+//			JButton jb = new JButton();
+//			add(jb, BorderLayout.CENTER);
 		}
         
     }
@@ -79,7 +89,7 @@ public class Draw extends JPanel {
 	 * @param w
 	 */
 	public void ifWin(int w) {
-		if (w >= 0 && w <= 2) {
+		if (w >= 0 && w <= 3) {
 			winCondition = w;
 		}
 	}

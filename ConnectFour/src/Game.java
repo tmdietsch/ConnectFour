@@ -80,6 +80,19 @@ public class Game {
 	
 	/**
 	 * 
+	 * @return
+	 */
+	public boolean testDraw() {
+		for (char c : getBoardLayout()) {
+			if (c == cBoard.getEmpty()) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	/**
+	 * 
 	 */
 	public void switchPlayer() {
 		

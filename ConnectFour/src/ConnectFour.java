@@ -64,13 +64,16 @@ public class ConnectFour extends JFrame implements ActionListener {
 		JMenu help = new JMenu("Help");
 		mb.add(file);
 		mb.add(help);
+		JMenuItem nRound = new JMenuItem("New Round");
 		JMenuItem nGame = new JMenuItem("New Game");
 		JMenuItem nRules = new JMenuItem("Rules");
 		JMenuItem credit = new JMenuItem("Credits");
+		nRound.addActionListener(this);
 		nGame.addActionListener(this);
 		nRules.addActionListener(this);
 		credit.addActionListener(this);
 		file.add(nGame);
+		file.add(nRound);
 		
 		if(!Desktop.isDesktopSupported()) {
 			nRules.setEnabled(false);
@@ -143,9 +146,16 @@ public class ConnectFour extends JFrame implements ActionListener {
 	 * Runs when the user presses a button or accesses a window
 	 */
 	public void actionPerformed(ActionEvent e) {
-		if (e.getActionCommand().equals("New Game")) {
+		if (e.getActionCommand().equals("New Round")) {
 			cFour = new Game(cFour.getP1Points(), cFour.getP2Points());
 			drawPanel.ifWin(0);
+			resetButtons();
+		}
+		else if(e.getActionCommand().equals("New Game")) {
+			cFour = new Game();
+			drawPanel.ifWin(0);
+			drawPanel.setP1Points(0);
+			drawPanel.setP2Points(0);
 			resetButtons();
 		}
 		else if(e.getActionCommand().equals("Rules") || e.getActionCommand().equals("Credits")) {
@@ -218,6 +228,12 @@ public class ConnectFour extends JFrame implements ActionListener {
 			drawPanel.ifWin(cFour.getCurrPlayerInt());			
 			drawPanel.repaint();
 			
+		}
+		else if (cFour.testDraw()) {
+			
+			//drawPanel update
+			drawPanel.ifWin(3);
+			drawPanel.repaint();
 		}
 	}
 	

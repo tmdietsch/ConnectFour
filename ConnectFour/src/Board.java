@@ -91,6 +91,12 @@ public class Board {
 	
 	/**
 	 * 
+	 * @return
+	 */
+	public char getEmpty() {return EMPTY;}
+	
+	/**
+	 * 
 	 * @param row
 	 * @param col
 	 * @return
