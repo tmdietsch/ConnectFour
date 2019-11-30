@@ -157,6 +157,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 			drawPanel.setP1Points(0);
 			drawPanel.setP2Points(0);
 			resetButtons();
+			drawPanel.repaint();
 		}
 		else if(e.getActionCommand().equals("Rules") || e.getActionCommand().equals("Credits")) {
 			File file = new File("ConnectFour//" + e.getActionCommand() + ".txt");
