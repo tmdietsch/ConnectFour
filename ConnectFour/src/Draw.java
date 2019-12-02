@@ -19,7 +19,7 @@ public class Draw extends JPanel {
 	private int pTwo;
 	
 	/**
-	 * 
+	 * Creates default board 
 	 */
 	public Draw() {
 		pOne = 0;
@@ -56,7 +56,7 @@ public class Draw extends JPanel {
     }
 	
 	/**
-	 * 
+	 * Number of rounds won by player one
 	 * @param p
 	 */
 	public void setP1Points(int p) {
@@ -64,7 +64,7 @@ public class Draw extends JPanel {
 	}
 	
 	/**
-	 * 
+	 * Number of rounds won by player two
 	 * @param p
 	 */
 	public void setP2Points(int p) {
@@ -73,13 +73,13 @@ public class Draw extends JPanel {
 	
 	/**
 	 * 
-	 * @return
+	 * @return pOne Number of rounds won by player one
 	 */
 	public int getP1Points() {return pOne;}
 	
 	/**
 	 * 
-	 * @return
+	 * @return pTwo Number of rounds won by player two
 	 */
 	public int getP2Points() {return pTwo;}
 	
@@ -95,7 +95,7 @@ public class Draw extends JPanel {
 	}
 	
 	/**
-	 * 
+	 * Sets the color of the square 
 	 * @param c
 	 */
 	public void setColor(Color c) {

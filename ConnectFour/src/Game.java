@@ -8,6 +8,7 @@ public class Game {
 	
 	/**
 	 * Creates a new board object
+	 * Used for a new game
 	 */
 	public Game() {
 		
@@ -18,7 +19,7 @@ public class Game {
 	}
 	
 	/**
-	 * 
+	 * Starts a new round after a previous game has ended 
 	 * @param p1Points
 	 * @param p2Points
 	 */
@@ -92,7 +93,7 @@ public class Game {
 	}
 	
 	/**
-	 * 
+	 * Changes turns
 	 */
 	public void switchPlayer() {
 		
@@ -105,25 +106,25 @@ public class Game {
 	
 	/**
 	 * 
-	 * @return
+	 * @return int Row
 	 */
 	public int getNumRow() {return cBoard.getNumRow();}
 	
 	/**
 	 * 
-	 * @return
+	 * @return int Column
 	 */
 	public int getNumCol() {return cBoard.getNumCol();}
 	
 	/**
 	 * 
-	 * @return
+	 * @return int Player one points 
 	 */
 	public int getP1Points() {return p1Points;}
 	
 	/**
 	 * 
-	 * @return
+	 * @return int Player two points 
 	 */
 	public int getP2Points() {return p2Points;}
 	
@@ -150,7 +151,7 @@ public class Game {
 	}
 	
 	/**
-	 * @return the player whose turn it is currently, determined in board
+	 * @return char CurrPlayer the player whose turn it is currently, determined in board
 	 */
 	public char getCurrPlayer() {
 		return cBoard.getCurrPlayer();
@@ -158,7 +159,7 @@ public class Game {
 	
 	/**
 	 * 
-	 * @return
+	 * @return int current player 1 or 2 
 	 */
 	public int getCurrPlayerInt() {
 		

@@ -13,7 +13,7 @@ public class Board {
 	private ArrayList<Character> boardList;
 	
 	/**
-	 * 
+	 * Creates a new Board
 	 */
 	public Board() {
 		
@@ -32,8 +32,8 @@ public class Board {
 	}
 	
 	/**
-	 * 
-	 * @param b
+	 * Creates a copy of a board object
+	 * @param b 
 	 */
 	public Board(Board b) {
 		
@@ -67,39 +67,39 @@ public class Board {
 	
 	/**
 	 * 
-	 * @return
+	 * @return number of rows
 	 */
 	public int getNumRow() {return NUM_ROW;}
 	
 	/**
 	 * 
-	 * @return
+	 * @return number of columns  
 	 */
 	public int getNumCol() {return NUM_COL;}
 	
 	/**
 	 * 
-	 * @return
+	 * @return char representing player 1
 	 */
 	public char getP1() {return P1;}
 	
 	/**
 	 * 
-	 * @return
+	 * @return char representing player 2
 	 */
 	public char getP2() {return P2;}
 	
 	/**
 	 * 
-	 * @return
+	 * @return char representing an empty space 
 	 */
 	public char getEmpty() {return EMPTY;}
 	
 	/**
-	 * 
+	 * Throws illegal argument exception if given incorrect row or columb
 	 * @param row
 	 * @param col
-	 * @return
+	 * @return char at given position 
 	 */
 	public char getPos(int row, int col) {
 		if (row >= 0 && col >=0 && row < NUM_ROW && col < NUM_COL)
@@ -111,7 +111,7 @@ public class Board {
 	/**
 	 * 
 	 * @param space
-	 * @return
+	 * @return char at given place in the list
 	 */
 	public char getPos(int space) {return boardList.get(space);}
 	
@@ -138,20 +138,20 @@ public class Board {
 	
 	/**
 	 * 
-	 * @return
+	 * @return char representing players turn
 	 */
 	public char getCurrPlayer() {return currentPlayer;}
 	
 	/**
-	 * 
-	 * @param p
+	 * Sets the next players turn 
+	 * @param p 
 	 */
 	public void setCurrPlayer(char p) {currentPlayer = p;}
 	
 	/**
-	 * 
-	 * @param col
-	 * @return
+	 * Assures that a given position exists and is empty. 
+	 * @param space
+	 * @return boolean 
 	 */
 	private boolean validPos(int space) {
 		
