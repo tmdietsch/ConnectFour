@@ -21,20 +21,20 @@ public class ConnectFour extends JFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	
+	//Window size and location
 	private final static int WIDTH = 512;
 	private final static int HEIGHT = 597;
 	private final static int X = (Toolkit.getDefaultToolkit().getScreenSize().width - WIDTH) / 2;
 	private final static int Y = (Toolkit.getDefaultToolkit().getScreenSize().height - HEIGHT) / 2;
 	
+	//Colors of players
 	private final static Color COLOR_ONE = Color.YELLOW;
 	private final static Color COLOR_TWO = Color.RED;
 	private final static Color COLOR_DEFAULT = Color.GRAY;
 	
-	private static Map<Integer, JButton> buttons;
-	private static Game cFour;
-	private static Draw drawPanel;
-	
-	private int butNum;
+	private static Map<Integer, JButton> buttons;	//Buttons used in the game
+	private static Game cFour;						//Game being played
+	private static Draw drawPanel;					//Panel for displaying text
 	
 	/**
 	 * Sets up the window when first created
@@ -113,8 +113,8 @@ public class ConnectFour extends JFrame implements ActionListener {
 				btn.setBackground(COLOR_DEFAULT);
 				btn.setForeground(COLOR_DEFAULT);
 				btn.addActionListener(this);
-				btn.setActionCommand(Integer.toString(i + j * 6));
-				buttons.put(i + j * 6, btn);
+				btn.setActionCommand(Integer.toString(i + j * cFour.getNumRow()));
+				buttons.put(i + j * cFour.getNumRow(), btn);
 				panel_char.add(btn);
 				
 			}
@@ -127,12 +127,8 @@ public class ConnectFour extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					ConnectFour frame = new ConnectFour();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+				ConnectFour frame = new ConnectFour();
+				frame.setVisible(true);
 			}
 		});
 		
@@ -188,7 +184,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 		}
 		else {
 		
-			butNum = Integer.parseInt(e.getActionCommand());
+			int butNum = Integer.parseInt(e.getActionCommand());
 			
 			cFour.turn(butNum);
 			updateBoard();
@@ -213,8 +209,6 @@ public class ConnectFour extends JFrame implements ActionListener {
 				buttons.get(i).setBackground(COLOR_TWO);
 				buttons.get(i).setEnabled(false);
 			}
-			else
-				buttons.get(i).setBackground(COLOR_DEFAULT);
 		}
 		
 		if (cFour.testWin()) {
@@ -239,7 +233,7 @@ public class ConnectFour extends JFrame implements ActionListener {
 	}
 	
 	/**
-	 * 
+	 * Resets all buttons to the COLOR_DEFAULT color
 	 */
 	private void resetButtons() {		
 		for (Integer bi : buttons.keySet()) {

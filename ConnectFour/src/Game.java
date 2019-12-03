@@ -80,8 +80,10 @@ public class Game {
 	}
 	
 	/**
+	 * Checks to see if the board is in a draw condition,
+	 * where all the spaces are used and there are no more valid moves
 	 * 
-	 * @return
+	 * @return	boolean if the board is in a draw condition
 	 */
 	public boolean testDraw() {
 		for (char c : getBoardLayout()) {
@@ -105,25 +107,25 @@ public class Game {
 	}
 	
 	/**
-	 * 
+	 * Gets the number of rows in the board
 	 * @return int Row
 	 */
 	public int getNumRow() {return cBoard.getNumRow();}
 	
 	/**
-	 * 
+	 * Gets the number of columns in the board
 	 * @return int Column
 	 */
 	public int getNumCol() {return cBoard.getNumCol();}
 	
 	/**
-	 * 
+	 * Gets the number of points for player 1
 	 * @return int Player one points 
 	 */
 	public int getP1Points() {return p1Points;}
 	
 	/**
-	 * 
+	 * Gets the number of points for player 2
 	 * @return int Player two points 
 	 */
 	public int getP2Points() {return p2Points;}
@@ -143,7 +145,6 @@ public class Game {
 				i++;
 			}
 		} catch(Exception e) {
-			
 		}
 		
 		return tempBoard;
